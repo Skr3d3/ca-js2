@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../dist/css/styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="/images/ninjaverselogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script type="module" defer src="../script/config.mjs"></script>
+    <script type="module" defer src="../script/auth.mjs"></script>
+    <script type="module" defer src="../script/signup.mjs"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js" integrity="sha512-TPh2Oxlg1zp+kz3nFA0C5vVC6leG/6mm1z9+mA81MI5eaUVqasPLO8Cuk4gMF4gUfP5etR73rgU/8PNMsSesoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Sign up</title>
+</head>
+<body class="bg-dark text-bg-dark">
+    <header class="bg-dark text-bg-dark">
+        <nav class="navbar fixed-top" data-bs-theme="dark">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="/feed/index.html"><img src="/images/ninjaverselogo.png" alt="Logo" width="50" class="d-inline-block">NinjaVerse</a>
+          </div>
+        </nav>
+    </header>  
+    <main class="container vh-100 mt-7">
+        <h1 class="border-bottom">Sign up</h1>
+        <section class="container mt-6 d-flex flex-column gap-5 justify-content-center align-items-center">
+            <h2>Enter your information here</h2>
+            <form id="signupform" class="card col-sm-7 container">
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label for="name-signup" class="form-label">Name</label>
+                    <input name="name" type="name" class="form-control" id="name-signup" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email-signup" class="form-label">Email</label>
+                    <input name="email" type="email" class="form-control" id="email-signup"required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password-signup" class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" id="password-signup"required minlength="8">
+                  </div>
+                  <div class="mb-3">
+                    <label for="re_password-signup" class="form-label">Retype Password</label>
+                    <input name="re_password" type="password" class="form-control" id="re_password-signup"required minlength="8">
+                  </div>
+                    <div class="d-flex flex-row justify-content-center">
+                        <button type="submit" class="btn btn-primary">Sign up</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
