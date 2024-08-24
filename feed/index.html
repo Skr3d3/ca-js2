@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js" integrity="sha512-TPh2Oxlg1zp+kz3nFA0C5vVC6leG/6mm1z9+mA81MI5eaUVqasPLO8Cuk4gMF4gUfP5etR73rgU/8PNMsSesoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" defer src="../script/general.mjs"></script>
+    <script type="module" defer src="../script/feed.mjs"></script>
     <title>Feed</title>
 </head>
 <body class="bg-dark text-bg-dark">
@@ -18,9 +20,9 @@
           <div class="container-fluid">
               <a class="navbar-brand" href="/feed/index.html"><img src="/images/ninjaverselogo.png" alt="Logo" width="50" class="d-inline-block">NinjaVerse</a>
               
-              <form class="d-none d-md-flex mt-3" role="search">
+              <form class="d-none d-md-flex mt-3 searchbar" role="search">
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-primary" type="submit">Search</button>
+                  <button class="btn btn-primary searchbarbtn" type="submit">Search</button>
               </form>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -31,13 +33,13 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
-              <form class="d-flex mb-4 me-2" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-primary" type="submit">Search</button>
+              <form class="d-flex mb-4 me-2 searchbar" role="search">
+                  <input id="searchbarinput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-primary searchbarbtn" type="submit">Search</button>
                 </form>
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                   <li class="nav-item">
-                    <a class="nav-link" href="../profile/index.html">Profile</a>
+                    <a id="profilebtn" class="nav-link" href="../profile/index.html">Profile</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Feed</a>
@@ -56,61 +58,46 @@
             <div class="card col-sm-7 container">
                 <div class="card-body">
                   <h5 class="card-title">Create new post</h5>
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Your name</label>
-                    <input type="name" class="form-control" id="name">
-                  </div>
-                  <div class="mb-3">
-                    <label for="message" class="form-label">Enter message</label>
-                    <textarea class="form-control" id="message" rows="3"></textarea>
-                  </div>
-                    <div class="d-flex flex-row justify-content-between">
-                        <button class="btn btn-special">Add image</button>
-                        <button class="btn btn-primary">Post</button>
+                  <form id="createpost">
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Title</label>
+                      <input type="text" class="form-control" id="title">
                     </div>
+                    <div class="mb-3">
+                      <label for="tags" class="form-label">Tags</label>
+                      <input type="text" class="form-control" id="tags">
+                    </div>
+                    <div class="mb-3">
+                      <label for="body" class="form-label">Enter message</label>
+                      <textarea class="form-control" id="body" rows="3"></textarea>
+                    </div>
+                      <div class="d-flex flex-row justify-content-between">
+                          <button class="btn btn-special">Add image</button>
+                          <button form="createpost" id="createpostbtn" class="btn btn-primary">Post</button>
+                      </div>
+                  </form>
                 </div>
               </div>
         </section>
         <section class="container mt-6 d-flex flex-column gap-5 justify-content-center align-items-center">
             <h2>Posts</h2>
-            <div class="dropdown">
+              <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Sort by
                 </button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#">Name</a></li>
                   <li><a class="dropdown-item" href="#">Date</a></li>
-                  <li><a class="dropdown-item" href="#">Location</a></li>
+                  <li><a class="dropdown-item" href="#">Tags</a></li>
                 </ul>
               </div>
-            <div class="card col-md-9 col-12">
-                <div class="card-body">
-                  <h5 class="card-title">New post</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">The Author</h6>
-                  <p class="card-text">The text that is written in the post</p>
-                  <button  class="btn btn-primary">Add comment</button>
-                </div>
-            </div>
-            <div class="card col-md-9 col-12">
-                <div class="card-body">
-                  <h5 class="card-title">New post</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">The Author</h6>
-                  <p class="card-text">The text that is written in the post</p>
-                  <button  class="btn btn-primary">Add comment</button>
-                </div>
-            </div>
-            <div class="card col-md-9 col-12">
-                <div class="card-body">
-                  <h5 class="card-title">New post</h5>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">The Author</h6>
-                  <p class="card-text">The text that is written in the post</p>
-                  <button  class="btn btn-primary">Add comment</button>
-                </div>
-            </div>
-            <div class="mb-5">
-            <button class="btn btn-primary">Show more</button>
-            </div>
         </section>
+        <section class="postscontainer container mt-6 d-flex flex-column gap-5 justify-content-center align-items-center">
+          
+        </section>
+        <div class="container mt-4 col-sm-1">
+          <button id="showmorebtn" class="btn btn-primary">Show more</button>
+          </div>
     </main>
 </body>
 </html>

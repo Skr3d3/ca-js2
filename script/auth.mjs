@@ -1,3 +1,4 @@
+import { authFetch } from "./fetch.mjs";
 
 
 export const formData = (form) => {
@@ -24,28 +25,36 @@ export const formData = (form) => {
     return registeredUser
 }
 
-export async function authUser(url, userData) {
+export async function authUser(url, userData, isSignUp = false) {
     try {
         const options = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
             body: JSON.stringify(userData),
         }
-        const response = await fetch(url, options)
-        console.log("Response", response)
+        const response = await authFetch(url, options);
         const json = await response.json();
-        console.log("Response JSON", json);
+        if (isSignUp) {
+            if (json.data) {
+                console.log("Sign up successfull")
+                return json;
+            } else {
+                throw new Error ("Sign up failed")
+            }
+        } else {
         if(json.data && typeof json.data.accessToken === "string") {
             const accessToken = json.data.accessToken;
             localStorage.setItem("accessToken", accessToken);
-            console.log(accessToken);
+            return json;
         } else {
             console.log("skipped json")
-            return;
+            throw new Error("Incorrect login credentials");
         };
+    }
 
     }
-    catch(error){console.warn("error", error)}
+    catch(error){
+        console.warn("error", error)
+        throw error
+    }
+
 }

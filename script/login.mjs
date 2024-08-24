@@ -8,24 +8,34 @@ const signupBtn = document.getElementById("signupbtn");
 
 const loginUrl = `${baseUrl}/auth/login`;
 
-// loginForm.addEventListener("submit", function(e){
-//     e.preventDefault();
-//     const userToLogin = formData(loginForm);
-//     console.log(userToLogin);
-//     if (userToLogin) {
-//         authUser(loginUrl, userToLogin);
-// };}
-// );
+loginBtn.addEventListener("click", function(e){
+    submitForm(e);
+});
 
-loginBtn.addEventListener("click", submitForm);
 signupBtn.addEventListener("click", function(e){
     e.preventDefault();
-})
+    const email = document.getElementById("email-login").value;
+    if(email) {
+        sessionStorage.setItem("email", email)
+    }
+    window.location.href = "/signup/index.html"
+});
 
-function submitForm(e){
+async function submitForm(e){
     e.preventDefault();
     const userToLogin = formData(loginForm);
     console.log(userToLogin);
     if (userToLogin) {
-        authUser(loginUrl, userToLogin);
+        try{
+            const response = await authUser(loginUrl, userToLogin);
+            if(response) {
+                setTimeout(function(){
+                    window.location.href = "feed/index.html"
+                }, 300)
+            };
+        }
+        catch(error){
+            alert(`Login failed! ${error.message}`)
+        }
+        
 };}
