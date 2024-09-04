@@ -1,5 +1,5 @@
 import { postsUrl, singlePostUrl } from "./config.mjs";
-import { getPosts } from "./feed.mjs";
+import { getPosts, initialize } from "./feed.mjs";
 import { authFetch } from "./fetch.mjs";
 
 export async function deletePost(postId) {
@@ -13,7 +13,7 @@ export async function deletePost(postId) {
                 throw new Error(response.status);
             }
             console.log(`Post with ID ${postId} deleted successfully`);
-            getPosts(postsUrl);
+            initialize();
         } catch (error) {
             console.log("Error deleting post", error);
         }

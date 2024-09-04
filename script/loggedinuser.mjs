@@ -2,7 +2,14 @@ import { profileUrl, postsUrl, profileParams } from "./config.mjs";
 import { accessToken } from "./config.mjs";
 import { authFetch } from "./fetch.mjs";
 
-
+/**
+ * Parses a JSON Web Token (JWT) and returns the decoded payload as a JavaScript object.
+ * The function handles the base64 decoding and JSON parsing of the JWT's payload.
+ *
+ * @param {string} token - The JWT as a string, typically in the format "header.payload.signature".
+ * @returns {Object|null} - Returns the decoded payload as a JavaScript object if the token is valid.
+ *   If the token is invalid or an error occurs during parsing, it returns `null` and logs an error to the console.
+ */
 export function parseJwt (token) {
     try {
         const base64Url = token.split('.')[1];
@@ -16,8 +23,22 @@ export function parseJwt (token) {
         console.error("Invalid token", error);
         return null;
     }
-}
+};
 
+
+/**
+ * Retrieves the logged-in user's information, including their profile and posts, based on the JWT token.
+ * 
+ * This function checks for a valid JWT token, extracts user information from the token,
+ * fetches the user's posts and profile data, and returns an object containing this information.
+ *
+ * @returns {Promise<Object|null>} - A promise that resolves to an object containing the logged-in user's 
+ *   name, email, posts, and profile data if successful. If any error occurs (e.g., token is missing or invalid, 
+ *   fetching posts or profile fails), the function returns `null` and logs the error to the console.
+ * 
+ * @throws {Error} - Throws an error if the token is not found, if the token is invalid, or if required user 
+ *   information is missing in the token payload.
+ */
 export async function getLoggedInUser() {
 
     try {
@@ -25,7 +46,7 @@ export async function getLoggedInUser() {
             throw new Error("Token not found");
         }
         const payload = parseJwt(accessToken); 
-        console.log("Decoded JWT Payload:", payload);
+        console.log("JWT Payload:", payload);
 
         const loggedInUserEmail = payload.email; 
         const loggedInUser = payload.name;
@@ -64,4 +85,4 @@ export async function getLoggedInUser() {
         console.log(error, "Unable to fetch users")
         return null;
     }
-}
+};

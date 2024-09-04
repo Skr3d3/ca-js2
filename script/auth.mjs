@@ -23,8 +23,21 @@ export const formData = (form) => {
         password: formObject.password
     };
     return registeredUser
-}
+};
 
+/**
+ * Authenticates a user by sending a POST request with the provided user data to the specified URL.
+ * This function handles both login and sign-up processes based on the `isSignUp` flag.
+ *
+ * @param {string} url - The URL to which the authentication request is sent.
+ * @param {Object} userData - An object containing the user's data (e.g., email and password).
+ * @param {boolean} [isSignUp=false] - A boolean flag indicating whether the operation is a sign-up (true) or a login (false).
+ * @returns {Promise<Object>} - A promise that resolves to the response data in JSON format if the authentication is successful.
+ *   For sign-ups, it resolves if the server confirms the creation of a new account.
+ *   For logins, it resolves if an access token is returned and saved to localStorage.
+ *
+ * @throws {Error} - Throws an error if the sign-up fails, the login credentials are incorrect, or if any other issue occurs during the request.
+ */
 export async function authUser(url, userData, isSignUp = false) {
     try {
         const options = {
@@ -57,4 +70,4 @@ export async function authUser(url, userData, isSignUp = false) {
         throw error
     }
 
-}
+};
