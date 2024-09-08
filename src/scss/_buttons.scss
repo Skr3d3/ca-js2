@@ -1,0 +1,23 @@
+
+.btn {
+     &-primary {
+        background-color: $purple;
+        border: $purple-dark;
+        &:hover{
+        background-color: $purple-dark;
+        }
+     }
+     &-special {
+      @extend .btn-secondary;
+
+      border-color: $purple;
+      &:hover {
+      background-color: $primary-bg-subtle-dark;
+      }
+     }
+     &-subtle {
+      @extend .btn-secondary;
+
+      background-color: transparent;
+     }
+}
