@@ -16,6 +16,15 @@ window.addEventListener("load", function() {
 
 signUpForm.addEventListener("submit", function(e){
     e.preventDefault();
+    
+    const emailInput = document.getElementById("email-signup").value;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@(stud\.noroff\.no|noroff\.no)$/;
+    
+    if (!emailPattern.test(emailInput)) {
+        alert("Please enter a valid Noroff email address.");
+        return;
+    }
+
     const userToRegister = formData(signUpForm)
     if (userToRegister) {
         authUser(registerUrl, userToRegister, true);

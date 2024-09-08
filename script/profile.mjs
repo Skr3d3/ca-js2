@@ -28,11 +28,14 @@ export async function getProfileData(url) {
 }
 
 
-export function showProfile(user, profile, loggedInUser){
+export async function showProfile(user, profile, loggedInUser){
 
     document.title = `${user.name}`;
 
-    console.log("Inital user data", user);
+    console.log("showprofile user", user)
+    
+    const userData = await getLoggedInUser()
+    const isAuthor = profile.data.email === userData.user.email;
 
     if(profileHeader !== null) {
     profileHeader.innerHTML = "";
@@ -55,9 +58,14 @@ export function showProfile(user, profile, loggedInUser){
 
     if (informationContainer !== null) {
     informationContainer.innerHTML = "";
-    informationContainer.innerHTML = `
+    informationContainer.innerHTML =`
+    <div class="card-body">
     <p class="card-text">${user.bio || "This user has nothing to say about themselves"}</p>
-    `;};
+    </div>
+    ${isAuthor ? `
+    <div>
+    <button id="editprofilebtn" class="btn btn-primary mt-3">Edit profile</button>
+    </div>` : ""}`};
 
     const hasPosts = user.posts && user.posts.length > 0;
     const postsList = hasPosts 

@@ -40,9 +40,10 @@ function showPosts(posts, loggedInUser) {
 
             postsContainer.innerHTML += `
             <div class="card col-md-9 col-12" data-post-id="${post.id}">
-                <div class="card-body">
+                <div class="card-body position-relative">
                     <h5 class="cardelements card-title">${post.title}</h5>
                     <h6 class="cardelements card-tags mb-2 text-body-secondary">${post.tags.join(", ")}</h6>
+                    <p class="position-absolute end-0 top-0">${post.created.split("T")[0]}</p>
                     <p class="cardelements card-text">${post.body}</p>
                     <div>
                         <p>Posted by: <a href="#" class="author-link" data-author-name="${post.author.name}">${post.author.name}</a></p>
@@ -154,6 +155,48 @@ function showPosts(posts, loggedInUser) {
     }
 };
 
+let currentSortOption = "created"
+
+document.querySelectorAll(".dropdown-item").forEach(item => {
+    item.addEventListener("click", function () {
+        const sortBy = this.textContent.trim().toLowerCase();
+        currentSortOption = sortBy;
+        sortAndShowPosts(sortBy)
+    });
+});
+
+async function sortAndShowPosts(sortBy) {
+    const posts = await getPosts(postsUrl, searchQuery);
+    let sortedPosts = posts;
+
+    switch (sortBy) {
+        case 'name':
+            sortedPosts = posts.sort((a, b) => a.title.localeCompare(b.title));
+            break;
+        case 'date':
+            sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));  // Newest first
+            break;
+        case 'tags':
+            sortedPosts = posts.sort((a, b) => {
+                if (a.tags.length > 0 && b.tags.length > 0) {
+                    return a.tags[0].localeCompare(b.tags[0]);
+                } else if (a.tags.length > 0) {
+                    return -1;
+                } else if (b.tags.length > 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            break;
+        default:
+            sortedPosts = posts;
+            break;
+    }
+
+    showPosts(sortedPosts);
+}
+
 async function updatePost(postId, newTitle, newTags, newBody){
 
     try{ 
@@ -223,6 +266,7 @@ export async function initialize() {
         const loggedInUser = userData.user;
         const posts = await getPosts(postsUrl) 
         showPosts(posts, loggedInUser);
+        sortAndShowPosts(currentSortOption); 
     } else {
         console.error("Failed to load user data");
     }
